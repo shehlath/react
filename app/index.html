@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+
+
+  <script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+  <script src="scripts/directive/appDirective.js"></script>
+  <link rel="stylesheet" href="styles/main.css">
+
+  <style>
+  table, td {
+    border: 2px solid grey;
+    border-collapse: collapse;
+    padding: 20px;
+  }
+
+  </style>
+
+  <!-- endbuild -->
+</head>
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<!--  <div class="header">
+<div class="navbar navbar-default" role="navigation">
+<div class="container">
+<div class="navbar-header">
+
+<a class="navbar-brand" href="#/">angular</a>
+</div>
+
+<div class="collapse">
+
+<ul class="nav navbar-nav">
+<li class="active"><a href="#/">Home</a></li>
+<li><a ng-href="#/">About</a></li>
+<li><a ng-href="#/">Contact</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div> -->
+
+<!--  <div class="container">
+<div>
+<p>Try writing in the input field:</p>
+<form name="myForm">
+<input name="num" ng-model="num" required new-directive>
+</form>
+<p>The input's valid state is:</p>
+<p>{{myForm.num.$valid}}</p>
+</div>
+</div>
+-->
+
+
+
+<body ng-app="angularApp" ng-controller="MainCtrl">
+  <div class="container" >
+    <div><h1>Form Validation</h1></div>
+    <form name="myForm">
+      <div>
+        <label><b>Search</b></label><br><br>
+        First Name: <input type="text" ng-model="obj.first_name"><br><br>
+        Last Name: <input type="text" ng-model="obj.last_name">
+      </div>
+      <br>
+      <br>
+      <table>
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="employee in employees | filter:obj">
+          <td>{{employee.id}}</td>
+          <td>{{employee.first_name}}</td>
+          <td>{{employee.last_name}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.gender}}</td>
+        </tr>
+      </tbody>
+
+      </table>
+      <br><br>
+      <table>
+        <tr>
+          <td width="510px">
+            First Name:<br><input type="text"name="firstname" ng-model="firstname" required text-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.firstname.$dirty && myForm.firstname.$error.alphaNum">Only alphanumeric.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.firstname.$dirty && myForm.firstname.$error.length">Length should be between 3 to 15.</span><br><br>
+
+            Last Name:<br><input type="text" name="lastname" ng-model="lastname" required text-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.lastname.$dirty && myForm.lastname.$error.alphaNum">Only alphanumeric.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.lastname.$dirty && myForm.lastname.$error.length">Length should be between 3 to 15.</span><br><br>
+
+            Address:<br><input type="text" name ="address" ng-model="address" required text-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.address.$dirty && myForm.address.$error.alphaNum">Only alphanumeric.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.address.$dirty && myForm.address.$error.length">Length should be between 3 to 15.</span><br><br>
+
+
+            Phone No.:<br><input type="text" name="phno" ng-model="phno" required num-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.phno.$dirty && myForm.phno.$error.numeric">Only digits allowed.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.phno.$dirty && myForm.phno.$error.length">Length should be between 5 to 10.</span>
+
+          </td>
+
+          <td width="510px">
+            Mobile No.:<br><input type="text" name="mobno" ng-model="mobno" required num-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.mobno.$dirty && myForm.mobno.$error.numeric">Only digits allowed.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.mobno.$dirty && myForm.mobno.$error.length">Length should be between 5 to 10.</span><br><br>
+
+            Pin code.:<br><input type="text" name="pin" ng-model="pin" required num-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.pin.$dirty && myForm.pin.$error.numeric">Only digits allowed with length between 5 to 10.</span>
+            <span style="color:red; font-style:italic" ng-if="myForm.pin.$dirty && myForm.pin.$error.length">Length should be between 5 to 10.</span><br><br>
+
+
+            Email:<br><input type="text" name="email" ng-model="email" required email-directive><br>
+            <span style="color:red; font-style:italic" ng-if="myForm.email.$dirty && myForm.email.$error.email">Enter email in correct format(eg:abc@xyz.com).</span><br><br>
+
+            Gender:<br>
+            <select ng-model="gender" name="gender" required gender-directive>
+              <option value="">
+                <option value="male">Male
+                  <option value="female">Female
+                  </select>
+                  <span style="color:red; font-style:italic" ng-if="myForm.gender.$dirty && myForm.gender.$error.gender">Select your gender.</span>
+
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2"><input type="submit" ng-disabled="myForm.$invalid" style="margin-left:290px; width:100px; height:30px; font-size:15px; border-radius:5px;"></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+
+
+
+
+
+
+        <!--    <div class="footer">
+        <div class="container">
+        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+      </div>
+    </div>
+
+  -->
+  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <!--    <script>
+  !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+  (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+  r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+}(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-XXXXX-X');
+ga('send', 'pageview');
+</script>
+
+-->
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/angular/angular.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<!--<script src="scripts/app.js"></script>-->
+<script src="scripts/controllers/main.js"></script>
+
+
+<!-- endbuild -->
+</body>
+</html>
